@@ -6,13 +6,15 @@ var fs   = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Jira Discord Bot ' });
 });
 
 /* GET webhook page. */
 router.post('/:hookId/:hookToken', function(req, res, next) {
     discord.hookId = req.params.hookId;
     discord.hookToken = req.params.hookToken;
+
+    console.log(req.body);
 
     var issue = req.body.issue;
     if (issue.assignee === null) {
@@ -24,8 +26,8 @@ router.post('/:hookId/:hookToken', function(req, res, next) {
     var matches = issue.self.match(/^(https?:\/\/[^\/?#]+)(?:[\/?#]|$)/i);
     var domain = matches && matches[1];
 
-    discord.userName = 'JiraWebhook';
-    discord.avatarUrl = 'https://seeklogo.com/images/A/atlassian-logo-73142F0575-seeklogo.com.gif';
+    discord.userName = 'Jira';
+    discord.avatarUrl = req.protocol + '://' + req.get('host') + '/images/jira.png';
 
     try {
         var actionsMessages = yaml.safeLoad(fs.readFileSync('messages_templates.yml', 'utf8'));
@@ -43,7 +45,7 @@ router.post('/:hookId/:hookToken', function(req, res, next) {
         discord.sendMessage(message);
     }
 
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Jira Discord Bot' });
 });
 
 module.exports = router;
