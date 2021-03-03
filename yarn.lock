@@ -234,11 +234,6 @@ destroy@~1.0.4:
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
   integrity sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
 
-discord-bot-webhook@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/discord-bot-webhook/-/discord-bot-webhook-1.0.4.tgz#f56300d6e08db6bea48631b25e7049e87f2b3be3"
-  integrity sha1-9WMA1uCNtr6khjGyXnBJ6H8rO+M=
-
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
