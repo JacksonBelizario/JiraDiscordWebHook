@@ -18,8 +18,6 @@ router.post('/:hookId/:hookToken', function(req, res, next) {
         discord.avatarUrl = req.protocol + '://' + req.get('host') + '/images/jira.png';
         
         discord.send(parseBody(req.body));
-
-        return newBody;
     } catch (err) {
         console.error(err);
     }
