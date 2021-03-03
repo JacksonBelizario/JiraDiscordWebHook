@@ -42,7 +42,7 @@ function parseBody(body) {
                             "icon_url": body.user.avatarUrls['48x48']
                         },
                         "title": body.issue.fields.description,
-                        "description": "[" + body.issue.key + ": " + body.issue.fields.summary + "](" + conf.jira_project_addr + '/browse/' + body.issue.key + ")",
+                        "description": "[" + body.issue.key + ": " + body.issue.fields.summary + "](" + body.domain + body.issue.key + ")",
                         "color": 15351320,
                         "fields": [{
                                 "name": "Type:",
@@ -76,7 +76,7 @@ function parseBody(body) {
                             "icon_url": body.user.avatarUrls['48x48']
                         },
                         // "title": body.issue.fields.description,
-                        "description": "[" + body.issue.key + ": " + body.issue.fields.summary + "](" + conf.jira_project_addr + '/browse/' + body.issue.key + ")",
+                        "description": "[" + body.issue.key + ": " + body.issue.fields.summary + "](" + body.domain + body.issue.key + ")",
                         "color": 16249146,
                         "fields": [{
                                 "name": "Type:",
@@ -115,7 +115,7 @@ function parseBody(body) {
                             "icon_url": body.comment.author.avatarUrls['48x48']
                         },
                         "title": body.issue.fields.description,
-                        "description": "[" + body.issue.key + ": " + body.issue.fields.summary + "](" + conf.jira_project_addr + '/browse/' + body.issue.key + ")",
+                        "description": "[" + body.issue.key + ": " + body.issue.fields.summary + "](" + body.domain + body.issue.key + ")",
                         "color": 7465496,
                         "fields": [{
                                 "name": "Type:",
