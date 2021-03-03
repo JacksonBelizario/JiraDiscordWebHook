@@ -1,0 +1,3 @@
+updated: "{{user.displayName}} updated the issue `{{issue.key}} - {{issue.fields.summary}}` - see more {{domain}}/{{issue.key}}"
+created: "{{user.displayName}} created the issue `{{issue.key}} - {{issue.fields.summary}}` - see more {{domain}}/{{issue.key}}"
+assigned: "{{user.displayName}} assign the issue `{{issue.key}} - {{issue.fields.summary}}` to {{issue.assignee.displayName}} - see more {{domain}}/{{issue.key}}"
