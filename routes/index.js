@@ -14,7 +14,7 @@ router.post('/:hookId/:hookToken', function(req, res, next) {
     discord.hookId = req.params.hookId;
     discord.hookToken = req.params.hookToken;
 
-    console.log(req.body);
+    console.log(JSON.stringify(req.body));
 
     var issue = req.body.issue;
     if (issue.assignee === null) {
