@@ -128,7 +128,7 @@ function parseBody(body) {
                             "fields": [
                                 {
                                     "name": body.changelog.items[0].field,
-                                    "value": body.changelog.items[0].toString,
+                                    "value": truncate(body.changelog.items[0].toString, 350),
                                     "inline": true
                                 }
                             ],
