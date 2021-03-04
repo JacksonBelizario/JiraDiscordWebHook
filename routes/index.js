@@ -21,6 +21,7 @@ router.post('/:hookId/:hookToken', function(req, res, next) {
         
         discord.send(data);
     } catch (err) {
+        console.log(JSON.stringify(req.body));
         console.error(err);
     }
 
@@ -80,7 +81,7 @@ function parseBody(body) {
                             "icon_url": body.user.avatarUrls['24x24']
                         },
                         "title": `${body.issue.key}: ${body.issue.fields.summary}`,
-                        "description": body.issue.fields.description,
+                        "description": truncate(body.issue.fields.description, 350),
                         "url": `${getDomain(body.issue.self)}/${body.issue.key}`,
                         "color": colors[body.issue.fields.issuetype.name] || null,
                         "fields": [
@@ -121,7 +122,7 @@ function parseBody(body) {
                             "icon_url": body.user.avatarUrls['24x24']
                         },
                         "title": `${body.issue.key}: ${body.issue.fields.summary}`,
-                        "description": body.issue.fields.description,
+                        // "description": body.issue.fields.description,
                         "url": `${getDomain(body.issue.self)}/${body.issue.key}`,
                         "color": colors[body.issue.fields.issuetype.name] || null,
                         "fields": [
@@ -194,7 +195,7 @@ function parseBody(body) {
                         "fields": [
                             {
                                 "name": "Comment:",
-                                "value": truncate(body.comment.body, 1000)
+                                "value": truncate(body.comment.body, 350)
                             }
                         ],
                     }]
