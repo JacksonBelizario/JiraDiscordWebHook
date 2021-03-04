@@ -122,23 +122,12 @@ function parseBody(body) {
                             "icon_url": body.user.avatarUrls['24x24']
                         },
                         "title": `${body.issue.key}: ${body.issue.fields.summary}`,
-                        // "description": body.issue.fields.description,
                         "url": `${getDomain(body.issue.self)}/${body.issue.key}`,
                         "color": colors[body.issue.fields.issuetype.name] || null,
                         "fields": [
                             {
-                                "name": "Type",
-                                "value": body.issue.fields.issuetype.name,
-                                "inline": true
-                            },
-                            {
-                                "name": "Priority",
-                                "value": body.issue.fields.priority.name,
-                                "inline": true
-                            },
-                            {
-                                "name": "Status",
-                                "value": body.issue.fields.status.statusCategory.name,
+                                "name": body.changelog.items[0].field,
+                                "value": body.changelog.items[0].toString,
                                 "inline": true
                             }
                         ],
