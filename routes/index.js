@@ -209,7 +209,6 @@ function parseBody(body) {
                 var actionMessage = actionsMessages[action];
                 var regex = /({{)([\\.a-zA-Z0-9]+)(}})/g;
                 var message = actionMessage.replace(regex, function(match, text, urlId) {
-                    console.log({urlId});
                     return eval(urlId);
                 });
         
