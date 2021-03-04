@@ -7,29 +7,27 @@ module.exports = {
         this.send({content});
     },
     send: function(body) {
-        const querystring = require('querystring');
-        const https = require('https');
+        var request = require('request');
 
-        const data = {
+        const newBody = {
             'username':this.userName,
             'avatar_url':this.avatarUrl,
             ...body
         };
 
-        const postBody = querystring.stringify(data);
-
-        const postreq = https.request({
-            hostname: 'canary.discordapp.com',
-            port: 443,
-            path: `/api/webhooks/${this.hookId}/${this.hookToken}`,
+        request({
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Content-Length': postBody.length
+            url: `https://canary.discordapp.com/api/webhooks/${this.hookId}/${this.hookToken}`,
+            headers: { 'Content-Type': 'application/json' },
+            body: newBody,
+            json: true
+        }, function(error, response, body) {
+            if (error) {
+                console.log('===============================')
+                console.log('Request err: ', error)
+                throw new Error(error);
             }
+            // console.log(body);
         });
-
-        postreq.write(postBody);
-        postreq.end();
     }
 };
