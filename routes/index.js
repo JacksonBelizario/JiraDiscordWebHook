@@ -53,7 +53,7 @@ function parseBody(body) {
         "Epic": ':purple_circle:',
     };
 
-    switch (body.issue_event_type_name) {
+    switch (body.webhookEvent) {
         case 'project_created':
             try {
                 return {
@@ -69,7 +69,7 @@ function parseBody(body) {
             } catch (err) {
                 throw new Error("case project_created issue: " + err)
             }
-        case 'issue_created':
+        case 'jira:issue_created':
             try {
                 return {
                     "embeds": [{
@@ -110,34 +110,32 @@ function parseBody(body) {
             } catch (err) {
                 throw new Error("case issue_created issue: " + err)
             }
-        case 'issue_updated':
+        case 'jira:issue_updated':
             try {
-                return {
-                    "embeds": [{
-                        "thumbnail": {
-                            "url": body.issue.fields.issuetype.iconUrl
-                        },
-                        "author": {
-                            "name": `${body.user.displayName} updated the ${body.changelog.items[0].field} of an ${body.issue.fields.issuetype.name}`,
-                            "icon_url": body.user.avatarUrls['24x24']
-                        },
-                        "title": `${body.issue.key}: ${body.issue.fields.summary}`,
-                        "url": `${getDomain(body.issue.self)}/${body.issue.key}`,
-                        "color": colors[body.issue.fields.issuetype.name] || null,
-                        "fields": [
-                            {
-                                "name": body.changelog.items[0].field,
-                                "value": body.changelog.items[0].toString,
-                                "inline": true
-                            }
-                        ],
-                    }]
+                if (body.issue_event_type_name == 'issue_updated') {
+                    return {
+                        "embeds": [{
+                            "thumbnail": {
+                                "url": body.issue.fields.issuetype.iconUrl
+                            },
+                            "author": {
+                                "name": `${body.user.displayName} updated the ${body.changelog.items[0].field} of an ${body.issue.fields.issuetype.name}`,
+                                "icon_url": body.user.avatarUrls['24x24']
+                            },
+                            "title": `${body.issue.key}: ${body.issue.fields.summary}`,
+                            "url": `${getDomain(body.issue.self)}/${body.issue.key}`,
+                            "color": colors[body.issue.fields.issuetype.name] || null,
+                            "fields": [
+                                {
+                                    "name": body.changelog.items[0].field,
+                                    "value": body.changelog.items[0].toString,
+                                    "inline": true
+                                }
+                            ],
+                        }]
+                    }
                 }
-            } catch (err) {
-                throw new Error("case issue_updated issue: " + err)
-            }
-        case 'issue_generic':
-            try {
+                // Generic update
                 return {
                     "embeds": [{
                         "thumbnail": {
@@ -175,18 +173,13 @@ function parseBody(body) {
                             "url": body.issue.fields.issuetype.iconUrl
                         },
                         "author": {
-                            "name": `${body.user.displayName} commented on a ${body.issue.fields.issuetype.name}`,
-                            "icon_url": body.user.avatarUrls['24x24']
+                            "name": `${body.comment.author.displayName} commented on a ${body.issue.fields.issuetype.name}`,
+                            "icon_url": body.comment.author.avatarUrls['24x24']
                         },
                         "title": `${body.issue.key}: ${body.issue.fields.summary}`,
                         "url": `${getDomain(body.issue.self)}/${body.issue.key}`,
                         "color": colors[body.issue.fields.issuetype.name] || null,
-                        "fields": [
-                            {
-                                "name": "Comment:",
-                                "value": truncate(body.comment.body, 350)
-                            }
-                        ],
+                        "description": truncate(body.comment.body, 350)
                     }]
                 }
             } catch (err) {
